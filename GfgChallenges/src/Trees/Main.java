@@ -16,7 +16,9 @@ public class Main {
 		tree.right.left = new BinaryTree(6);
 		tree.right.right = new BinaryTree(7);
 
-		tree.paths();
+//		tree.left.left = null; 
+//		t = null;
+		tree.pathPrint();
 		
 //		System.out.println(tree.isSymmetric());
 		

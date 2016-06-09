@@ -1,5 +1,6 @@
 package Trees;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -18,10 +19,6 @@ public class BinaryTree {
 		this.right = null;
 		this.value = newValue;
 	}
-	
-	
-	
-	
 	
 	public void preOrder(){
 		System.out.print(value+ " ");
@@ -71,27 +68,31 @@ public class BinaryTree {
 		}
 	}
 	
-	public void printPaths(){
-		BinaryTree current = this;
-		String path = "";
-		Stack<BinaryTree> stack = new Stack<BinaryTree>();
-		path = path + current.value + " ";
-		stack.push(current);
-		while(!stack.isEmpty()){
-			if(stack.peek().left != null){
-				path = path + stack.peek().value + " ";
-			}else if(stack.peek().right != null){
-				current = current.right;
-				path = path + current.value + " ";
-			} else {// if(current.left == null&&current.right == null){
-				path = path.trim();
-				System.out.print(path);
-				path = path.substring(0,path.lastIndexOf(" "));		
-				System.out.println();
-			}
-		}
+	//non-Recursive printPath
+	public void pathPrint() {
+	    Stack<Object> stack = new Stack<Object>();
+	    BinaryTree root = this;
+	    if (root == null)
+	        return;
+	    stack.push(root.value + " ");
+	    stack.push(root);
+	    while (!stack.isEmpty()) {
+	        BinaryTree temp = (BinaryTree) stack.pop();
+	        String path = (String) stack.pop();
+
+	        if (temp.right != null) {
+	            stack.push(path + temp.right.value + " ");
+	            stack.push(temp.right);
+	        }
+	        if (temp.left != null) {
+	            stack.push(path + temp.left.value+ " ");
+	            stack.push(temp.left);
+	        }
+	        if (temp.left == null && temp.right == null) {
+	            System.out.println(path);
+	        }
+	    }
 	}
-	
 	private boolean isMirror(BinaryTree left, BinaryTree right) {
 		if(left == null && right == null){
 			return true;
