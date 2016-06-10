@@ -44,6 +44,13 @@ public class BinaryTree {
 		System.out.print(this.value+ " ");
 	}
 	
+	int height(BinaryTree n){
+		if(n==null) 
+			return -1;
+		else 
+			return 1 + Math.max(height(n.left), height(n.right));
+	}
+	
 	public boolean isSymmetric() {
 		
 		
@@ -101,6 +108,40 @@ public class BinaryTree {
 			return isMirror(left.left,right.right) && isMirror(left.right, right.left); 
 		return false;
 	}
+	
+	public void plotTree(){
+		char[][] buffer = new char[10][70];
+		for(int i=0;i<10; i++){  
+			for(int j=0;j<buffer[0].length;j++){  
+				buffer[i][j] = ' ';	//creating buffer						
+			}
+			System.out.println(); 
+		}
+		plotTree(0, 34, 17, buffer );
+		for(int i=0;i<10; i++){  
+			for(int j=0;j<buffer[0].length;j++){  
+				 System.out.print(buffer[i][j]); 							
+			}
+			System.out.println();
+		}
+	}
+	
+	private void plotTree(int level, int offset, int ref, char[][] buffer){
+		if(this!=null){ 
+			String num = Integer.toString(this.value);
+			for(int i=0; i< num.length(); i++) 
+				buffer[level][offset + i] = num.charAt(i); 		
+			if(this.left!= null) { 
+				buffer[level + 1][offset - ref/2 ] = '/';  
+				this.left.plotTree(level+2, offset - ref, ref/2 , buffer);  
+			} 
+			if(this.right!=null){  
+				buffer[level + 1][offset + ref/2 ] = '\\'; 
+				this.right.plotTree(level+2, offset + ref, ref/2 , buffer); 
+			}
+		 }
+	}
+	
 	public BinaryTree getLeft() {
 		return left;
 	}

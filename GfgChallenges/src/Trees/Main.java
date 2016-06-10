@@ -18,9 +18,11 @@ public class Main {
 
 //		tree.left.left = null; 
 //		t = null;
-		tree.pathPrint();
 		
-//		System.out.println(tree.isSymmetric());
+		
+		tree.plotTree();
+//		tree.pathPrint();
+		
 		
 		
 	}
