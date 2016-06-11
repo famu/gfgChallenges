@@ -109,17 +109,56 @@ public class BinaryTree {
 		return false;
 	}
 	
+	//prints a tree left to right
+	public void plotTree2d(){
+		int row = 10;
+		int col = 15;
+		char[][] buffer = new char[row][col];
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
+				buffer[i][j] = ' ';	//creating buffer						
+			}
+			System.out.println();
+		}
+		plotTree2d(0, row/2, row/4, buffer );
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){
+				System.out.print(buffer[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	private void plotTree2d(int level, int offset, int ref, char[][] buffer){
+		if(this!=null){
+			String num = Integer.toString(this.value);
+			for(int i=0; i< num.length(); i++)
+				buffer[offset][level+ i] = num.charAt(i);
+			if(this.left!= null) {
+//				buffer[offset - ref/2 ][level + 1] = '/';
+				this.left.plotTree2d(level+3, offset + ref, ref/2 , buffer);
+			}
+			if(this.right!=null){
+//				buffer[offset + ref/2 ][level + 1] = '\\';
+				this.right.plotTree2d(level+3, offset - ref, ref/2 , buffer);
+			}
+		 }
+	}
+	
 	public void plotTree(){
-		char[][] buffer = new char[10][70];
-		for(int i=0;i<10; i++){  
-			for(int j=0;j<buffer[0].length;j++){  
+		int row = 10;
+		int col = 20;
+		char[][] buffer = new char[row][col];
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
 				buffer[i][j] = ' ';	//creating buffer						
 			}
 			System.out.println(); 
 		}
-		plotTree(0, 34, 17, buffer );
-		for(int i=0;i<10; i++){  
-			for(int j=0;j<buffer[0].length;j++){  
+		plotTree(0, col/2, col/4, buffer );
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
 				 System.out.print(buffer[i][j]); 							
 			}
 			System.out.println();
@@ -134,7 +173,7 @@ public class BinaryTree {
 			if(this.left!= null) { 
 				buffer[level + 1][offset - ref/2 ] = '/';  
 				this.left.plotTree(level+2, offset - ref, ref/2 , buffer);  
-			} 
+			}
 			if(this.right!=null){  
 				buffer[level + 1][offset + ref/2 ] = '\\'; 
 				this.right.plotTree(level+2, offset + ref, ref/2 , buffer); 
