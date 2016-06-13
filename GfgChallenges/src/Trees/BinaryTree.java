@@ -1,5 +1,6 @@
 package Trees;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -18,10 +19,6 @@ public class BinaryTree {
 		this.right = null;
 		this.value = newValue;
 	}
-	
-	
-	
-	
 	
 	public void preOrder(){
 		System.out.print(value+ " ");
@@ -45,6 +42,13 @@ public class BinaryTree {
 		if(this.right!=null)
 			right.preOrder();
 		System.out.print(this.value+ " ");
+	}
+	
+	int height(BinaryTree n){
+		if(n==null) 
+			return -1;
+		else 
+			return 1 + Math.max(height(n.left), height(n.right));
 	}
 	
 	public boolean isSymmetric() {
@@ -71,27 +75,31 @@ public class BinaryTree {
 		}
 	}
 	
-	public void printPaths(){
-		BinaryTree current = this;
-		String path = "";
-		Stack<BinaryTree> stack = new Stack<BinaryTree>();
-		path = path + current.value + " ";
-		stack.push(current);
-		while(!stack.isEmpty()){
-			if(stack.peek().left != null){
-				path = path + stack.peek().value + " ";
-			}else if(stack.peek().right != null){
-				current = current.right;
-				path = path + current.value + " ";
-			} else {// if(current.left == null&&current.right == null){
-				path = path.trim();
-				System.out.print(path);
-				path = path.substring(0,path.lastIndexOf(" "));		
-				System.out.println();
-			}
-		}
+	//non-Recursive printPath
+	public void pathPrint() {
+	    Stack<Object> stack = new Stack<Object>();
+	    BinaryTree root = this;
+	    if (root == null)
+	        return;
+	    stack.push(root.value + " ");
+	    stack.push(root);
+	    while (!stack.isEmpty()) {
+	        BinaryTree temp = (BinaryTree) stack.pop();
+	        String path = (String) stack.pop();
+
+	        if (temp.right != null) {
+	            stack.push(path + temp.right.value + " ");
+	            stack.push(temp.right);
+	        }
+	        if (temp.left != null) {
+	            stack.push(path + temp.left.value+ " ");
+	            stack.push(temp.left);
+	        }
+	        if (temp.left == null && temp.right == null) {
+	            System.out.println(path);
+	        }
+	    }
 	}
-	
 	private boolean isMirror(BinaryTree left, BinaryTree right) {
 		if(left == null && right == null){
 			return true;
@@ -100,6 +108,79 @@ public class BinaryTree {
 			return isMirror(left.left,right.right) && isMirror(left.right, right.left); 
 		return false;
 	}
+	
+	//prints a tree left to right
+	public void plotTree2d(){
+		int row = 10;
+		int col = 15;
+		char[][] buffer = new char[row][col];
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
+				buffer[i][j] = ' ';	//creating buffer						
+			}
+			System.out.println();
+		}
+		plotTree2d(0, row/2, row/4, buffer );
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){
+				System.out.print(buffer[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	private void plotTree2d(int level, int offset, int ref, char[][] buffer){
+		if(this!=null){
+			String num = Integer.toString(this.value);
+			for(int i=0; i< num.length(); i++)
+				buffer[offset][level+ i] = num.charAt(i);
+			if(this.left!= null) {
+//				buffer[offset - ref/2 ][level + 1] = '/';
+				this.left.plotTree2d(level+3, offset + ref, ref/2 , buffer);
+			}
+			if(this.right!=null){
+//				buffer[offset + ref/2 ][level + 1] = '\\';
+				this.right.plotTree2d(level+3, offset - ref, ref/2 , buffer);
+			}
+		 }
+	}
+	
+	public void plotTree(){
+		int row = 10;
+		int col = 20;
+		char[][] buffer = new char[row][col];
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
+				buffer[i][j] = ' ';	//creating buffer						
+			}
+			System.out.println(); 
+		}
+		plotTree(0, col/2, col/4, buffer );
+		for(int i=0;i<row; i++){  
+			for(int j=0;j<col;j++){  
+				 System.out.print(buffer[i][j]); 							
+			}
+			System.out.println();
+		}
+	}
+	
+	private void plotTree(int level, int offset, int ref, char[][] buffer){
+		if(this!=null){ 
+			String num = Integer.toString(this.value);
+			for(int i=0; i< num.length(); i++) 
+				buffer[level][offset + i] = num.charAt(i); 		
+			if(this.left!= null) { 
+				buffer[level + 1][offset - ref/2 ] = '/';  
+				this.left.plotTree(level+2, offset - ref, ref/2 , buffer);  
+			}
+			if(this.right!=null){  
+				buffer[level + 1][offset + ref/2 ] = '\\'; 
+				this.right.plotTree(level+2, offset + ref, ref/2 , buffer); 
+			}
+		 }
+	}
+	
 	public BinaryTree getLeft() {
 		return left;
 	}
