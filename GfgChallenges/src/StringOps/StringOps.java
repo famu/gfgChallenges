@@ -5,10 +5,9 @@ import java.util.HashMap;
 public class StringOps {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 
-//	System.out.println(solution("F s..S e . x x "));
+//	System.out.println(NumOfWords("F s..S e . x x "));
 	
 	
 		System.out.println(isPalin_iterative("aa"));
@@ -49,7 +48,7 @@ public class StringOps {
 		return result;
 	}
 	
-	public static int solution(String S) {
+	public static int NumOfWords(String S) {
 		 ArrayList<String> sentences = new ArrayList<String>();
 		 int max=0;
 		 int tempMax = 0;
