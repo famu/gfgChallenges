@@ -12,53 +12,23 @@ public class Main {
 		string = newString;
 	}
 	public static void main(String[] args) {
-//		String givenString = "123 abcdesklf jdl .k/_ )(-+=&!@#$%^&*";
-//		String startWith = "123";
+		String givenString = "123 abcdesklf jdl .k/_ )(-+=&!@#$%^&*";
+		String startWith = "123";
 //		
 		
-//		PatternMatching pattern = new PatternMatching(givenString, startWith);
+		PatternMatching pattern = new PatternMatching(givenString, startWith);
 		
-//		System.out.println(pattern.isMatch());
+		System.out.println(pattern.isMatch());
 		
-//		isMath("(1234...!@#$%^&* 8888 abcdefg k)","");
+		isMatch("(1234...!@#$%^&* 8888 abcdefg k)","");
 
 //		int[] numbers = {3,5,1,6,1,4,1,0,8,9};
 //		System.out.println(areRandom(numbers ));
 		
-		System.out.println(isPalin("asa"));
-	}
-	public static boolean isPalin(String string){
-		while(!string.equals("") || string != null){
-			if(string.length()==1|| string.equals("") || string == null)
-				return true;
-			if(string.charAt(0)!=string.charAt(string.length()-1)){
-				return false;
-			}else{
-				string = string.substring(1,string.length()-1);
-			}
-		}
-		return false;
 	}
 	
-	//recursive
-	public static boolean isPalindrom(String string){
-		if(string==null || string.equals("")){
-			return true;
-		}
-		else if(string.length()==1){
-			return true;
-		}
-		else {
-			if(string.charAt(0)!=string.charAt(string.length()-1)){
-				return false;
-			}else{
-				return isPalindrom(string.substring(1,string.length()-1));
-			}//
-			 
-		}
-	}
 	//(1234...!@#$%^&* 8888 abcdefg k)
-	public static boolean isMath(String string, String pattern){
+	public static boolean isMatch(String string, String pattern){
 		if(!string.startsWith("(") || !string.endsWith(")")){
 			return false;
 		}
@@ -82,15 +52,11 @@ public class Main {
 			}
 			
 		}
-		
-		
-		
 		System.out.println(string);
-		
 		return true;
 	}
 	
-	
+	//Not completed.
 	public static boolean areRandom(int numbers[]){
 		HashMap<Integer, String> repeated = new HashMap();
 		

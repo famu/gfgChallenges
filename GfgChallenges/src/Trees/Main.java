@@ -23,6 +23,11 @@ public class Main {
 		tree.plotTree();
 //		tree.pathPrint();
 		
+		int sum;
+//		System.out.println(sum);
+//		for(int i=1;i<=10;i++)
+//			sum=sum+i;
+		
 		
 		
 	}
