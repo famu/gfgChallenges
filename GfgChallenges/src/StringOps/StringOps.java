@@ -7,12 +7,54 @@ public class StringOps {
 	public static void main(String[] args) {
 
 
-//	System.out.println(NumOfWords("F s..S e . x x "));
+	System.out.println(MaxWordsCount(" First sentence.. .  Second! "));
 	
+	//WordsCounter
+//	System.out.println(WordsCounter(" this  is  a sentence. "));
 	
-		System.out.println(isPalin_iterative("aa"));
+//		System.out.println(isPalin_iterative("aa"));
 	
 	}
+	
+	public static int MaxWordsCount(String S) {
+		 ArrayList<String> sentences = new ArrayList<String>();
+		 int max=0;
+		 int tempMax = 0;
+		 
+		 
+		 int newIndex=0;
+		 for(int i=0; i<S.length();i++){
+			 if(S.charAt(i)=='.'||S.charAt(i)=='?'||S.charAt(i)=='!' || i==S.length()-1){
+				 sentences.add(S.substring(newIndex,i));
+				 newIndex = i+1;
+				 System.out.println(sentences);
+			 }
+		 }
+		 max = WordsCounter(sentences.get(0));
+		 for(int j=1; j<sentences.size();j++){
+			 tempMax = WordsCounter(sentences.get(j));
+			 if(tempMax > max)
+				 max = tempMax;
+		 }
+		 return max;
+	    }
+	public static int WordsCounter(String sentence){
+		if(sentence==null || sentence.length()==0) return 0;
+		sentence = sentence.trim();
+		int counter=0;
+		for(int i=0;i<sentence.length();i++){
+			if(sentence.charAt(i)==' '){
+				counter++;
+				if(i<sentence.length()-1){
+					while(sentence.charAt(i+1)==' '){// to get the the index of first letter of next word
+						i=i+1;
+					}
+				}
+			}
+		}
+		return counter+1;
+	}
+	
 	
 	public static boolean isPalindrome(String str){
 		if(str.length()<2) return true;
@@ -48,48 +90,7 @@ public class StringOps {
 		return result;
 	}
 	
-	public static int NumOfWords(String S) {
-		 ArrayList<String> sentences = new ArrayList<String>();
-		 int max=0;
-		 int tempMax = 0;
-		 
-		 
-		 int newIndex=0;
-		 for(int i=0; i<S.length();i++){
-			 if(S.charAt(i)=='.'||S.charAt(i)=='?'||S.charAt(i)=='!' || i==S.length()-1){
-				 sentences.add(S.substring(newIndex,i));
-				 newIndex = i+1;
-				 System.out.println(sentences);
-			 }
-		 }
-		 
-		 tempMax = countWords(sentences.get(0));
-		 
-		 for(int j=1; j<sentences.size();j++){
-			 tempMax = countWords(sentences.get(j));
-			 if(tempMax > max)
-				 max = tempMax;
-		 }
-		 
-		 return max;
-	    }
-
-
-	private static int countWords(String sentence) {
-		int counter=0;
-		if(sentence.length()==0) return 0;
-		for(int i=0; i<sentence.length();i++){
-			if(sentence.charAt(i)==' '){
-				counter = counter+1;
-				 if(i<sentence.length()-1){
-					 while(sentence.charAt(i+1)== ' '){ //To get the next noWhiteSpace char index
-						 i=i+1;
-					}
-				 }
-			}
-//			System.out.println(sentence);
-		}
-
-		return counter;
-	}
+	
+	
+	
 }
